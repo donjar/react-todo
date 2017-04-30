@@ -50,7 +50,6 @@ class TodoList extends React.Component {
   }
 
   addTodo(name) {
-    console.log(this.state.todoItems);
     if (this.state.todoItems.some(todoItem => { return todoItem.name === name })) {
       alert("Cannot have same name");
       return;
