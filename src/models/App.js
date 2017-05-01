@@ -1,33 +1,7 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
-class TodoItem extends React.Component {
-  render() {
-    return (
-      <div key={this.props.name} onClick={this.props.handleClick}>{this.props.name}</div>
-    )
-  }
-}
-
-class TodoList extends React.Component {
-  renderItem(props) {
-    return (
-      <TodoItem key={props.name} name={props.name} handleClick={props.handleClick(props.name)} />
-    )
-  }
-
-  render() {
-    return (
-      <div>
-        {this.props.todoItems.map(item => this.renderItem({
-          name: item.name,
-          handleClick: this.props.handleClick,
-        }))}
-      </div>
-    )
-  }
-}
+import logo from '../logo.svg';
+import '../App.css';
+import TodoList from './TodoList';
 
 class App extends React.Component {
   constructor() {
