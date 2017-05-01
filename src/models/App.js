@@ -17,14 +17,16 @@ class App extends React.Component {
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1>To-do List</h1>
+          <p>Click to-do to delete</p>
         </div>
 
         <div className="container">
           <div className="input-group">
-            <input type="text" id="add-todo-input" className="form-control" />
+            <input type="text" id="add-todo-input" className="form-control"
+                   onKeyPress={(e) => this.handleAddTodoFromKeyPress(e)} />
             <span className="input-group-btn">
               <button className="btn btn-default" type="button"
-                      onClick={() => this.addTodo(document.getElementById("add-todo-input").value)}>
+                      onClick={() => this.handleAddTodoFromClick()}>
                 Add Todo
               </button>
             </span>
@@ -34,6 +36,16 @@ class App extends React.Component {
         </div>
       </div>
     )
+  }
+
+  handleAddTodoFromKeyPress(e) {
+    if (e.key !== "Enter") { return; }
+    this.handleAddTodoFromClick();
+  }
+
+  handleAddTodoFromClick() {
+    this.addTodo(document.getElementById("add-todo-input").value);
+    document.getElementById("add-todo-input").value = "";
   }
 
   addTodo(name) {
@@ -48,13 +60,10 @@ class App extends React.Component {
   }
 
   todoHandleClick(name) {
-    console.log("called");
-    /*
     const newTodoItems = this.state.todoItems.filter(todoItem => { return todoItem.name !== name });
     this.setState({
       todoItems: newTodoItems,
     })
-    */
   }
 }
 

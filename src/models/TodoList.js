@@ -4,7 +4,7 @@ import TodoItem from './TodoItem';
 class TodoList extends React.Component {
   renderItem(props) {
     return (
-      <TodoItem key={props.name} name={props.name} handleClick={props.handleClick(props.name)} />
+      <TodoItem key={props.name} name={props.name} handleClick={() => props.handleClick(props.name)} />
     )
   }
 
