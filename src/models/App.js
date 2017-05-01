@@ -2,6 +2,7 @@ import React from 'react';
 import logo from '../logo.svg';
 import '../App.css';
 import TodoList from './TodoList';
+import AddTodoInput from './AddTodoInput';
 
 class App extends React.Component {
   constructor() {
@@ -21,35 +22,17 @@ class App extends React.Component {
         </div>
 
         <div className="container">
-          <div className="input-group">
-            <input type="text" id="add-todo-input" className="form-control"
-                   onKeyPress={(e) => this.handleAddTodoFromKeyPress(e)} />
-            <span className="input-group-btn">
-              <button className="btn btn-default" type="button"
-                      onClick={() => this.handleAddTodoFromClick()}>
-                Add Todo
-              </button>
-            </span>
-          </div>
-
-          <TodoList todoItems={this.state.todoItems} handleClick={name => this.todoHandleClick(name)} />
+          <AddTodoInput addTodo={name => this.addTodo(name)} />
+          <TodoList todoItems={this.state.todoItems}
+                    handleClick={name => this.itemHandleClick(name)} />
         </div>
       </div>
     )
   }
 
-  handleAddTodoFromKeyPress(e) {
-    if (e.key !== "Enter") { return; }
-    this.handleAddTodoFromClick();
-  }
-
-  handleAddTodoFromClick() {
-    this.addTodo(document.getElementById("add-todo-input").value);
-    document.getElementById("add-todo-input").value = "";
-  }
-
   addTodo(name) {
-    if (this.state.todoItems.some(todoItem => { return todoItem.name === name })) {
+    const sameName = todoItem => { return todoItem.name === name };
+    if (this.state.todoItems.some(sameName)) {
       alert("Cannot have same name");
       return;
     }
@@ -59,8 +42,10 @@ class App extends React.Component {
     });
   }
 
-  todoHandleClick(name) {
-    const newTodoItems = this.state.todoItems.filter(todoItem => { return todoItem.name !== name });
+  itemHandleClick(name) {
+    const newTodoItems = this.state.todoItems.filter(todoItem =>
+      { return todoItem.name !== name }
+    );
     this.setState({
       todoItems: newTodoItems,
     })
